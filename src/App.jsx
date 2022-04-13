@@ -24,14 +24,14 @@ const App = () =>{
     <div className="app">
       <h1>Badflix</h1>
       <div className="search">
-        <input type="text" placeholder="Your favourite film.." value={search} onChange={(elem)=>setSearch(elem.target.value)}/>
-        <img src="icon" alt="search" onClick={()=> searchFilm(search)}/>
+        <input type="text" onKeyPress={elem => elem.key === 'Enter' && searchFilm(search)} placeholder="Your favourite film.." value={search} onChange={(elem)=>setSearch(elem.target.value)}/>
+        <button onClick={()=> searchFilm(search)} className="search-button"></button>
       </div>
 
       {
-        film.length > 0 ?(
+        film?.length > 0 ?(
       <div className="container">
-        {film.map(elem =><FilmCard props={elem}/>)}
+        {film.map((elem,i) =><FilmCard key={elem + i} props={elem}/>)}
       </div>
         ) : (
           <div className="empty"><h2>No way man</h2></div>
