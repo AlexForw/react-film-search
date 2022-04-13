@@ -1,22 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import './App.css'
+import FilmCard from "./FilmCard";
+
 
 const API = 'http://www.omdbapi.com?apikey=47daf436'
 
-const movie = {
-  "Title": "The Amazing Spiderman T4 Premiere Special",
-  "Year": "2012",
-  "imdbID": "tt2233044",
-  "Type": "movie",
-  "Poster": "N/A"
-}
 
 const App = () =>{
+  const [film, setFilm] = useState([])
+
 
   const searchFilm = async (target) =>{
     const resp = await fetch(`${API}&s=${target}`)
     const data = await resp.json()
-    return data.Search
+    setFilm(data.Search)
   }
 
   useEffect(()=>{
@@ -31,19 +28,15 @@ const App = () =>{
         <img src="icon" alt="search" />
       </div>
 
-
+      {
+        film.length > 0 ?(
       <div className="container">
-      <div>
-            <p>{movie.Year}</p>
-          </div>
-
-          <div><img src={movie.Poster} alt={movie.Title} /></div>
-          
-          <div>
-            <span>{movie.Type}</span>
-            <h3>{movie.Title}</h3>
-          </div>
+        {film.map(elem =><FilmCard props={elem}/>)}
       </div>
+        ) : (
+          <div className="empty"><h2>No way man</h2></div>
+        )
+      }
     </div>
   );
 }
