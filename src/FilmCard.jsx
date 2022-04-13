@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilmCard = ({props}) => {
     return (
-        <div>
+        <div className='movie'>
             <div>
             <p>{props.Year}</p>
           </div>
